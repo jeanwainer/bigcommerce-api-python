@@ -92,7 +92,7 @@ class Connection(object):
         (see Bigcommerce resource documentation).
         """
         if v3:
-            self.api_path = '/api/v3/{}'
+            self.api_path = '/stores/{}/v3/{}'
         if rid:
             if resource[-1] != '/':
                 resource += '/'
