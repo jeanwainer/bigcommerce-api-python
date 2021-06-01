@@ -80,7 +80,7 @@ class Connection(object):
 
     # CRUD methods
 
-    def get(self, resource="", rid=None, **query):
+    def get(self, resource="", rid=None, v3=False, **query):
         """
         Retrieves the resource with given id 'rid', or all resources of given type.
         Keep in mind that the API returns a list for any query that doesn't specify an ID, even when applying
@@ -91,6 +91,8 @@ class Connection(object):
             connection.get('products', limit=3, min_price=10.5)
         (see Bigcommerce resource documentation).
         """
+        if v3:
+            self.api_path = '/api/v3/{}'
         if rid:
             if resource[-1] != '/':
                 resource += '/'
