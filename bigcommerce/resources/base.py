@@ -104,6 +104,15 @@ class ListableApiResource(ApiResource):
             Returns first page if no params passed in as a list.
         """
 
+        for key in params.copy():
+            if key.endswith('__in'):
+                field = key[:-4]
+                params[field+':in'] = params.pop(key)
+            elif key.endswith('__not_in'):
+                field = key[:-8]
+                params[field+':not_in'] = params.pop(key)
+
+
         request = cls._make_request('GET', cls._get_all_path(), connection, params=params)
         return cls._create_object(request, connection=connection)
 

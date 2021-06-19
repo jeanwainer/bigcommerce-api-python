@@ -80,7 +80,7 @@ class Connection(object):
 
     # CRUD methods
 
-    def get(self, resource="", rid=None, v3=False, **query):
+    def get(self, resource="", rid=None, v3=False, params={}, **query):
         """
         Retrieves the resource with given id 'rid', or all resources of given type.
         Keep in mind that the API returns a list for any query that doesn't specify an ID, even when applying
@@ -93,6 +93,10 @@ class Connection(object):
         """
         if v3:
             self.api_path = '/stores/{}/v3/{}'
+
+        if params:
+            query.update(params)
+
         if rid:
             if resource[-1] != '/':
                 resource += '/'
